@@ -10,7 +10,8 @@ G_constant=4.3 * pow(10,-6)
 # try plummer potential
 scaleRadius=2*pow(10,-3)
 mass=pow(10,5)
-
+def relativeVariation(array):
+    return np.divide(np.abs(np.subtract(array,np.full(np.shape(array),array[0]))),np.abs(np.full(np.shape(array),array[0])))
 # check AGAMA plummer model density against analytical formula
 def plummerManualDensity(array):
     result=[]
@@ -99,6 +100,7 @@ result=agama.orbit(potential=plummer,ic=starting_points,time=[0.05,1,5],trajsize
 plt.plot(result[0][1][:,0], result[0][1][:,1],label="Orbit1")
 plt.legend()
 plt.title("Plummer orbits")
+plt.axis('equal')
 plt.savefig("./output/PlummerOrbits1.png")
 plt.show()
 # clear plot
@@ -107,6 +109,7 @@ plt.clf()
 plt.plot(result[1][1][:,0], result[1][1][:,1],label="Orbit2")
 plt.legend()
 plt.title("Plummer orbits")
+plt.axis('equal')
 plt.savefig("./output/PlummerOrbits2.png")
 plt.show()
 # clear plot
@@ -115,6 +118,7 @@ plt.clf()
 plt.plot(result[2][1][:,0], result[2][1][:,1],label="Orbit3")
 plt.legend()
 plt.title("Plummer orbits")
+plt.axis('equal')
 plt.savefig("./output/PlummerOrbits3.png")
 plt.show()
 # clear plot
@@ -160,6 +164,36 @@ plt.savefig("./output/PlummerEnergy.png")
 plt.show()
 plt.clf()
 
+
+#plot energy and actions
+plt.plot(t3, relativeVariation(actionsOrbit2[:,2]),label="Orbit3")
+plt.plot(t2, relativeVariation(actionsOrbit1[:,2]),label="Orbit2")
+plt.plot(t1, relativeVariation(actionsOrbit0[:,2]),label="Orbit1")
+
+plt.legend()
+plt.title("Plummer L_z relative variation")
+plt.savefig("./output/PlummerL_zRel.png")
+plt.show()
+plt.clf()
+
+plt.plot(t3, relativeVariation(actionsOrbit2[:,1]+np.abs(actionsOrbit2[:,2])),label="Orbit3")
+plt.plot(t2, relativeVariation(actionsOrbit1[:,1]+np.abs(actionsOrbit1[:,2])),label="Orbit2")
+plt.plot(t1, relativeVariation(actionsOrbit0[:,1]+np.abs(actionsOrbit0[:,2])),label="Orbit1")
+plt.legend()
+plt.title("Total angular momentum L relative variation")
+plt.savefig("./output/Plummer_angular_momentumRel.png")
+plt.show()
+plt.clf()
+
+
+plt.plot(t3, relativeVariation(energyOrbit2), label="Orbit3")
+plt.plot(t2, relativeVariation(energyOrbit1), label="Orbit2")
+plt.plot(t1, relativeVariation(energyOrbit0), label="Orbit1")
+plt.legend()
+plt.title("Energy relative variation")
+plt.savefig("./output/PlummerEnergyRel.png")
+plt.show()
+plt.clf()
 # clear interpreter memory
 del(result)
 gc.collect()
@@ -170,6 +204,7 @@ result=agama.orbit(potential=BHPotential1,ic=starting_points,time=[0.05,0.1,5],t
 plt.plot(result[0][1][:,0], result[0][1][:,1],label="Orbit1")
 plt.legend()
 plt.title("Plummer+Kepler orbits")
+plt.axis('equal')
 plt.savefig("./output/BHKeplerOrbits1.png")
 plt.show()
 # clear plot
@@ -178,6 +213,7 @@ plt.clf()
 plt.plot(result[1][1][:,0], result[1][1][:,1],label="Orbit2")
 plt.legend()
 plt.title("Plummer+Kepler orbits")
+plt.axis('equal')
 plt.savefig("./output/BHKeplerOrbits2.png")
 plt.show()
 # clear plot
@@ -186,6 +222,7 @@ plt.clf()
 plt.plot(result[2][1][:,0], result[2][1][:,1],label="Orbit3")
 plt.legend()
 plt.title("Plummer+Kepler orbits")
+plt.axis('equal')
 plt.savefig("./output/BHKeplerOrbits3.png")
 plt.show()
 # clear plot
@@ -232,6 +269,37 @@ plt.savefig("./output/BHKeplerEnergy.png")
 plt.show()
 plt.clf()
 
+
+#plot energy and actions
+plt.plot(t3, relativeVariation(actionsOrbit2[:,2]),label="Orbit3")
+plt.plot(t2, relativeVariation(actionsOrbit1[:,2]),label="Orbit2")
+plt.plot(t1, relativeVariation(actionsOrbit0[:,2]),label="Orbit1")
+
+plt.legend()
+plt.title("Plummer+Kepler L_z relative variation")
+plt.savefig("./output/BHKeplerL_zRel.png")
+plt.show()
+plt.clf()
+
+plt.plot(t3, relativeVariation(actionsOrbit2[:,1]+np.abs(actionsOrbit2[:,2])),label="Orbit3")
+plt.plot(t2, relativeVariation(actionsOrbit1[:,1]+np.abs(actionsOrbit1[:,2])),label="Orbit2")
+plt.plot(t1, relativeVariation(actionsOrbit0[:,1]+np.abs(actionsOrbit0[:,2])),label="Orbit1")
+plt.legend()
+plt.title("Total angular momentum L relative variation")
+plt.savefig("./output/BHKepler_angular_momentumRel.png")
+plt.show()
+plt.clf()
+
+
+plt.plot(t3, relativeVariation(energyOrbit2), label="Orbit3")
+plt.plot(t2, relativeVariation(energyOrbit1), label="Orbit2")
+plt.plot(t1, relativeVariation(energyOrbit0), label="Orbit1")
+plt.legend()
+plt.title("Energy relative variation")
+plt.savefig("./output/BHKeplerEnergyRel.png")
+plt.show()
+plt.clf()
+
 # clear interpreter memory
 del(result)
 gc.collect()
@@ -242,6 +310,7 @@ result=agama.orbit(potential=BHPotential2,ic=starting_points,time=[0.05,0.1,5],t
 plt.plot(result[0][1][:,0], result[0][1][:,1],label="Orbit1")
 plt.legend()
 plt.title("Plummer+SmallPlummer orbits")
+plt.axis('equal')
 plt.savefig("./output/BHSmallPlummerOrbits1.png")
 plt.show()
 # clear plot
@@ -250,6 +319,7 @@ plt.clf()
 plt.plot(result[1][1][:,0], result[1][1][:,1],label="Orbit2")
 plt.legend()
 plt.title("Plummer+SmallPlummer orbits")
+plt.axis('equal')
 plt.savefig("./output/BHSmallPlummerOrbits2.png")
 plt.show()
 # clear plot
@@ -258,6 +328,7 @@ plt.clf()
 plt.plot(result[2][1][:,0], result[2][1][:,1],label="Orbit3")
 plt.legend()
 plt.title("Plummer+SmallPlummer orbits")
+plt.axis('equal')
 plt.savefig("./output/BHSmallPlummerOrbits3.png")
 plt.show()
 # clear plot
@@ -304,6 +375,36 @@ plt.savefig("./output/BHSmallPlummerEnergy.png")
 plt.show()
 plt.clf()
 
+
+#plot energy and actions
+plt.plot(t3, relativeVariation(actionsOrbit2[:,2]),label="Orbit3")
+plt.plot(t2, relativeVariation(actionsOrbit1[:,2]),label="Orbit2")
+plt.plot(t1, relativeVariation(actionsOrbit0[:,2]),label="Orbit1")
+
+plt.legend()
+plt.title("Plummer+SmallPlummer L_z relative variation")
+plt.savefig("./output/BHSmallPlummerL_zRel.png")
+plt.show()
+plt.clf()
+
+plt.plot(t3, relativeVariation(actionsOrbit2[:,1]+np.abs(actionsOrbit2[:,2])),label="Orbit3")
+plt.plot(t2, relativeVariation(actionsOrbit1[:,1]+np.abs(actionsOrbit1[:,2])),label="Orbit2")
+plt.plot(t1, relativeVariation(actionsOrbit0[:,1]+np.abs(actionsOrbit0[:,2])),label="Orbit1")
+plt.legend()
+plt.title("Total angular momentum L relative variation")
+plt.savefig("./output/BHSmallPlummer_angular_momentumRel.png")
+plt.show()
+plt.clf()
+
+
+plt.plot(t3, relativeVariation(energyOrbit2), label="Orbit3")
+plt.plot(t2, relativeVariation(energyOrbit1), label="Orbit2")
+plt.plot(t1, relativeVariation(energyOrbit0), label="Orbit1")
+plt.legend()
+plt.title("Energy relative variation")
+plt.savefig("./output/BHSmallPlummerEnergyRel.png")
+plt.show()
+plt.clf()
 # clear interpreter memory
 del(result)
 gc.collect()
@@ -319,6 +420,7 @@ result2=Hernquist.integrate_orbit(starting_points[2].T, dt=0.0000005, n_steps=10
 plt.plot(result.x, result.y,label="Orbit1")
 plt.legend()
 plt.title("Hernquist orbits")
+plt.axis('equal')
 plt.savefig("./output/HernquistOrbits1.png")
 plt.show()
 # clear plot
@@ -327,6 +429,7 @@ plt.clf()
 plt.plot(result1.x, result1.y,label="Orbit2")
 plt.legend()
 plt.title("Hernquist orbits")
+plt.axis('equal')
 plt.savefig("./output/HernquistOrbits2.png")
 plt.show()
 # clear plot
@@ -335,6 +438,7 @@ plt.clf()
 plt.plot(result2.x, result2.y,label="Orbit3")
 plt.legend()
 plt.title("Hernquist orbits")
+plt.axis('equal')
 plt.savefig("./output/HernquistOrbits3.png")
 plt.show()
 # clear plot
@@ -389,6 +493,34 @@ plt.savefig("./output/HernquistEnergy.png")
 plt.show()
 plt.clf()
 
+#plot energy and actions
+plt.plot(t3, relativeVariation(momentumZ2),label="Orbit3")
+plt.plot(t2, relativeVariation(momentumZ1),label="Orbit2")
+plt.plot(t1, relativeVariation(momentumZ0),label="Orbit1")
+plt.legend()
+plt.title("Hernquist L_z relative variation")
+plt.savefig("./output/HernquistL_zRel.png")
+plt.show()
+plt.clf()
+
+plt.plot(t3, relativeVariation(momentumModulo2),label="Orbit3")
+plt.plot(t2, relativeVariation(momentumModulo1),label="Orbit2")
+plt.plot(t1, relativeVariation(momentumModulo0),label="Orbit1")
+plt.legend()
+plt.title("Total angular momentum L relative variation")
+plt.savefig("./output/Hernquist_angular_momentumRel.png")
+plt.show()
+plt.clf()
+
+plt.plot(t3, relativeVariation(energyOrbit2), label="Orbit3")
+plt.plot(t2, relativeVariation(energyOrbit1), label="Orbit2")
+plt.plot(t1, relativeVariation(energyOrbit0), label="Orbit1")
+
+plt.legend()
+plt.title("Energy relative variation")
+plt.savefig("./output/HernquistEnergyRel.png")
+plt.show()
+plt.clf()
 # clear interpreter memory
 del(result)
 gc.collect()
