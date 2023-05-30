@@ -158,7 +158,7 @@ for selectedPotential,selectedTime,selectedTrajSize,selectedTitle,selectedFilena
     result2 = selectedPotential[2].integrate_orbit(starting_points[2].T, dt=selectedTime[2]/selectedTrajSize[2], n_steps=selectedTrajSize[2],
                                         Integrator=selectedIntegrator[2],cython_if_possible=True)
 
-    plt.plot(np.sqrt(np.add(np.square(result.x.to_value()[1:1000000]),np.square(result.y.to_value()[1:1000000]))), result.y.to_value()[1:1000000], label="Orbit1")
+    plt.plot(np.sqrt(np.add(np.square(result.x.to_value()[1:1000000]),np.square(result.y.to_value()[1:1000000]))), result.z.to_value()[1:1000000], label="Orbit1")
     plt.legend()
     plt.title(selectedTitle[0])
     plt.axis('equal')
@@ -168,7 +168,7 @@ for selectedPotential,selectedTime,selectedTrajSize,selectedTitle,selectedFilena
     plt.clf()
     gc.collect()
 
-    plt.plot(np.sqrt(np.add(np.square(result1.x.to_value()[1:1000000]),np.square(result1.y.to_value()[1:1000000]))), result1.y.to_value()[1:1000000], label="Orbit2")
+    plt.plot(np.sqrt(np.add(np.square(result1.x.to_value()[1:1000000]),np.square(result1.y.to_value()[1:1000000]))), result1.z.to_value()[1:1000000], label="Orbit2")
     plt.legend()
     plt.title(selectedTitle[1])
     plt.axis('equal')
@@ -178,7 +178,7 @@ for selectedPotential,selectedTime,selectedTrajSize,selectedTitle,selectedFilena
     plt.clf()
     gc.collect()
 
-    plt.plot(np.sqrt(np.add(np.square(result2.x.to_value()),np.square(result2.y.to_value()))), result2.y.to_value(), label="Orbit3")
+    plt.plot(np.sqrt(np.add(np.square(result2.x.to_value()),np.square(result2.y.to_value()))), result2.z.to_value(), label="Orbit3")
     plt.legend()
     plt.title(selectedTitle[2])
     plt.axis('equal')
